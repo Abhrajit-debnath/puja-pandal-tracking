@@ -31,7 +31,9 @@ async function seed() {
                 "image1.jpg",
                 "image2.jpg"
             ],
-            "bannerImageUrl": "banner.jpg"
+            "bannerImageUrl": "banner.jpg",
+            "latitude": 12.34,
+            "longitude": 56.78
         },
         {
             "name": "demo pandal",
@@ -44,7 +46,9 @@ async function seed() {
                 "image1.jpg",
                 "image2.jpg"
             ],
-            "bannerImageUrl": "banner.jpg"
+            "bannerImageUrl": "banner.jpg",
+            "latitude": 12.34,
+            "longitude": 56.78
         }
     ];
 

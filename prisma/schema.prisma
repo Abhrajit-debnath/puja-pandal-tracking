@@ -12,8 +12,14 @@ datasource db {
   provider = "postgresql"
 }
 
+enum crowdStatus {
+  LIGHT
+  MODERATE
+  HIGH
+}
+
 model Pandal {
-  id             String   @id @default(cuid())
+  id             String     @id @default(cuid())
   name           String
   locality       String
   theme          String?
@@ -22,5 +28,16 @@ model Pandal {
   eventYear      String
   imageUrls      String[]
   bannerImageUrl String
-  createdAt      DateTime @default(now())
+  checkins       Checkins[]
+  latitude       Float
+  longitude      Float
+  createdAt      DateTime   @default(now())
+}
+
+model Checkins {
+  id         String      @id @default(cuid())
+  crowdLevel crowdStatus
+  pandalId   String
+  pandal     Pandal      @relation(fields: [pandalId], references: [id])
+  createdAt  DateTime    @default(now())
 }
