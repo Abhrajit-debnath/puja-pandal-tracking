@@ -13,8 +13,14 @@ datasource db {
 }
 
 model Pandal {
-  id String @id @default(cuid())
-  name String
-  location String
-  createdAt DateTime @default(now())
+  id             String   @id @default(cuid())
+  name           String
+  locality       String
+  theme          String?
+  description    String?
+  year           Int
+  eventYear      String
+  imageUrls      String[]
+  bannerImageUrl String
+  createdAt      DateTime @default(now())
 }
