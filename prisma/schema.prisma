@@ -4,8 +4,9 @@
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
+  // output   = "../src/generated/prisma"
+   previewFeatures = ["postgresqlExtensions"] 
 }
 
 datasource db {
@@ -32,6 +33,9 @@ model Pandal {
   latitude       Float
   longitude      Float
   createdAt      DateTime   @default(now())
+
+
+  @@index([latitude, longitude, id])
 }
 
 model Checkins {
@@ -40,4 +44,6 @@ model Checkins {
   pandalId   String
   pandal     Pandal      @relation(fields: [pandalId], references: [id])
   createdAt  DateTime    @default(now())
+
+  @@index([pandalId, createdAt, id])
 }
