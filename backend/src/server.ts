@@ -18,7 +18,7 @@ app.use(pinoHttp({
 app.use(express.json());
 
 
-app.use( IndexRoutes);
+app.use(IndexRoutes);
 
 
 app.get('/', (req, res) => {

@@ -14,9 +14,9 @@ datasource db {
 }
 
 enum crowdStatus {
-  LIGHT
-  MODERATE
-  HIGH
+  CALM
+  BUSY
+  PACKED
 }
 
 model Pandal {
