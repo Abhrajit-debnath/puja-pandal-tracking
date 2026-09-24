@@ -24,6 +24,7 @@ export const getNearbyPandals = async (
 
         res.status(200).json({
             success: true,
+            message: "Nearby pandals fetched successfully.",
             data: pandals,
         });
     } catch (error) {

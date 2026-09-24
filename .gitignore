@@ -4,3 +4,5 @@ dist
 *.html
 *.md
 
+/backend/.env
+

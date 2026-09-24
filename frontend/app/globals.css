@@ -1,0 +1,76 @@
+/* Option 1: explicitly assign the import to the mantine layer */
+@layer theme, base, mantine, components, utilities;
+
+@import '@mantine/core/styles.css' layer(mantine);
+@import "tailwindcss";
+
+:root {
+  /* Brand / Core Palette */
+  --color-sacred-wine: #1c0508;
+  --color-sacred-wine-elevated: #2a0910;
+  --color-saffron-gold: #e59b2c;
+  --color-saffron-gold-bright: #f4b244;
+  --color-live-red: #dc2626;
+  --color-alpona-ivory: #faf4ec;
+  --color-alpona-ivory-luminous: #fffbf5;
+
+  /* Accents & Functional Badges */
+  --color-teal-heritage: #1f8f6e;
+  --color-coral-devotion: #ff5e7e;
+  --color-royal-amethyst: #9333ea;
+
+  /* Surface & Borders */
+  --color-card-border: #f0e5d3;
+  --color-gold-hairline: rgba(229, 155, 44, 0.2);
+
+  /* Typography Colors */
+  --color-text-primary: #1f140e;
+  --color-text-secondary: #7a6c60;
+  --color-text-dark: #fffdf9;
+  --color-text-gold: #f3b03c;
+
+  /* Typography Families */
+  --font-serif: var(--font-playfair), "Playfair Display", Georgia, serif;
+  --font-sans: var(--font-jakarta), "Plus Jakarta Sans", sans-serif;
+  --font-cursive: var(--font-cursive), "Great Vibes", cursive;
+
+  --container-max-width: 1200px;
+}
+
+/* Tailwind v4 Theme Configuration */
+@theme {
+  /* Fonts */
+  --font-serif: var(--font-serif);
+  --font-sans: var(--font-sans);
+  --font-cursive: var(--font-cursive);
+
+  /* Colors mapped to Tailwind utility classes (e.g. bg-sacred-wine, text-saffron-gold) */
+  --color-sacred-wine: var(--color-sacred-wine);
+  --color-sacred-wine-elevated: var(--color-sacred-wine-elevated);
+  --color-saffron-gold: var(--color-saffron-gold);
+  --color-saffron-gold-bright: var(--color-saffron-gold-bright);
+  --color-live-red: var(--color-live-red);
+  --color-alpona-ivory: var(--color-alpona-ivory);
+  --color-alpona-ivory-luminous: var(--color-alpona-ivory-luminous);
+  --color-teal-heritage: var(--color-teal-heritage);
+  --color-coral-devotion: var(--color-coral-devotion);
+  --color-royal-amethyst: var(--color-royal-amethyst);
+  --color-text-secondary: var(--color-text-secondary);
+
+  /* Border Radii */
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+  --radius-full: 9999px;
+
+  /* Container Max Width */
+  --container: var(--container-max-width);
+}
+
+body {
+  background-color: var(--color-alpona-ivory);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+}
