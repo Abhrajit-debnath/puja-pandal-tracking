@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Playfair_Display, Plus_Jakarta_Sans, Great_Vibes } from "next/font/google";
 import "./globals.css";
 import App from "./App";
+import SocketProvider from "./providers/SocketProvider";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -32,7 +33,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <body className="bg-alpona-ivory min-h-screen font-sans">
         <App>
-          {children}
+          <SocketProvider>
+            {children}
+          </SocketProvider>
+          
         </App>
       </body>
     </html>

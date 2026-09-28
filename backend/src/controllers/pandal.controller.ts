@@ -3,6 +3,7 @@ import { createCheckinService, findNearbyPandals } from "../services/pandal.serv
 import { checkinSchema, pandalIdSchema, type CheckinBody } from "../schemas/pandal.schema.js";
 import type { CrowdLevelEnum, LocationCoordinates } from "../types/pandal.types.js";
 import { getPandalById as getPandalByIdService } from "../services/pandal.service.js";
+import { fetchCheckins } from "../repository/pandal.repository.js";
 export const getNearbyPandals = async (
     req: Request<{}, any, any, LocationCoordinates>,
     res: Response,
@@ -21,6 +22,7 @@ export const getNearbyPandals = async (
         }
 
         const pandals = await findNearbyPandals({ latitude, longitude });
+      
 
         res.status(200).json({
             success: true,
@@ -92,7 +94,7 @@ export const createCheckin = async (
 
         const { crowdLevel } = parsed.data;
         const { pandalId } = req.params;
-        const checkIn = await createCheckinService(pandalId,crowdLevel as CrowdLevelEnum);
+        const checkIn = await createCheckinService(pandalId, crowdLevel as CrowdLevelEnum);
 
         if (!checkIn) {
             res.status(404).json({

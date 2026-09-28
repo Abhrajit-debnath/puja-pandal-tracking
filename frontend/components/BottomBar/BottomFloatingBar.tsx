@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Home, Landmark, Radio, Images, User } from "lucide-react";
+import { Home, Landmark, Radio, Images, User, Loader2 } from "lucide-react";
+import { useLocationStore } from "@/store/useLocationStore";
 
 const navItems = [
   { id: "home", label: "Home", icon: Home, href: "#" },
-  { id: "pandal", label: "Pandal", icon: Landmark, href: "#pandals" },
+  { id: "suggest", label: "Suggest", icon: Landmark, href: "#" },
   { id: "live", label: "Live", icon: Radio, href: "#live", isHero: true },
   { id: "gallery", label: "Gallery", icon: Images, href: "#gallery" },
   { id: "profile", label: "Profile", icon: User, href: "#profile" },
@@ -13,6 +14,16 @@ const navItems = [
 
 const BottomFloatingBar = () => {
   const [activeTab, setActiveTab] = useState("home");
+  const { fetchNearbyPandals, isLoading } = useLocationStore();
+
+  const handleTabClick = (e: React.MouseEvent, item: typeof navItems[0]) => {
+    setActiveTab(item.id);
+
+    if (item.id === "suggest") {
+      e.preventDefault();
+      fetchNearbyPandals(); 
+    }
+  };
 
   return (
     <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-xl">
@@ -28,16 +39,12 @@ const BottomFloatingBar = () => {
               <a
                 key={item.id}
                 href={item.href}
-                onClick={() => setActiveTab(item.id)}
+                onClick={(e) => handleTabClick(e, item)}
                 className="flex flex-col items-center justify-center relative -top-7 cursor-pointer group"
               >
-                {/* Outer Pulse Glow Ring */}
-
                 {/* Red Circular Button */}
                 <div className="w-12 h-12 rounded-full bg-live-red text-white flex items-center justify-center shadow-lg shadow-[#dc2626]/40 group-hover:scale-105 transition-transform duration-200 border border-white relative z-10">
-                                  <div className="absolute rounded-full  bg-[#dc2626]/20 h-12 w-12  animate-ping pointer-events-none"></div>
-
-                  
+                  <div className="absolute rounded-full bg-[#dc2626]/20 h-12 w-12 animate-ping pointer-events-none" />
                   <Icon className="w-5 h-5 animate-pulse" strokeWidth={2.2} />
                 </div>
 
@@ -54,23 +61,27 @@ const BottomFloatingBar = () => {
             <a
               key={item.id}
               href={item.href}
-              onClick={() => setActiveTab(item.id)}
+              onClick={(e) => handleTabClick(e, item)}
               className={`flex flex-col items-center justify-center px-2 py-1 cursor-pointer transition-colors duration-200 group ${
                 isActive ? "text-saffron-gold" : "text-[#7a6c60] hover:text-[#1f140e]"
               }`}
             >
-              <Icon
-                className={`w-5 h-5 transition-transform duration-200 group-hover:scale-110 ${
-                  isActive ? "text-saffron-gold" : "text-[#7a6c60] group-hover:text-[#1f140e]"
-                }`}
-                strokeWidth={isActive ? 2.3 : 1.8}
-              />
+              {item.id === "suggest" && isLoading ? (
+                <Loader2 className="w-5 h-5 animate-spin text-saffron-gold" />
+              ) : (
+                <Icon
+                  className={`w-5 h-5 transition-transform duration-200 group-hover:scale-110 ${
+                    isActive ? "text-saffron-gold" : "text-[#7a6c60] group-hover:text-[#1f140e]"
+                  }`}
+                  strokeWidth={isActive ? 2.3 : 1.8}
+                />
+              )}
               <span
                 className={`text-[11px] mt-0.5 tracking-tight font-sans ${
                   isActive ? "font-bold text-saffron-gold" : "font-medium text-[#7a6c60]"
                 }`}
               >
-                {item.label}
+                {item.id === "suggest" && isLoading ? "Locating..." : item.label}
               </span>
             </a>
           );

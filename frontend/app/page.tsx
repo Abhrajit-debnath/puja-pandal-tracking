@@ -1,3 +1,5 @@
+
+"use client";
 import HeroSection from "@/components/hero/HeroSection";
 import HeroFeatureBox from "@/components/hero/HeroFeatureBox";
 import FeaturedSection from "@/components/Featured/FeaturedSection";
@@ -6,12 +8,15 @@ import FestiveWorldSection from "@/components/FestiveWorld/FestiveWorldSection";
 import LatestUpdatesSection from "@/components/Updates/LatestUpdatesSection";
 import BannerCTA from "@/components/Banner/BannerCTA";
 import BottomFloatingBar from "@/components/BottomBar/BottomFloatingBar";
-import LocationTracker from "@/components/LocationTracker";
+import SuggestPandalModal from "@/components/Suggest/SuggestPandalModal";
+import AudioPlayer from "@/components/AudioPlayer";
+import { useEffect, useRef } from "react";
 
 export default function Home() {
+ 
   return (
     <main className="min-h-screen bg-[#faf4ec] text-[#1f140e] pb-16">
-      <LocationTracker/>
+      <AudioPlayer />
       <HeroSection />
       <HeroFeatureBox />
       <FeaturedSection />
@@ -20,6 +25,7 @@ export default function Home() {
       <LatestUpdatesSection />
       <BannerCTA />
       <BottomFloatingBar />
+      <SuggestPandalModal />
     </main>
   );
 }

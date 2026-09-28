@@ -1,16 +1,12 @@
 import Express, { Router } from "express";
+import { checkinSchema, locationSchema } from "../../schemas/pandal.schema.js";
+import { validate, validateQuery } from "../../middlewares/validation.middleware.js";
+import { createCheckin, getNearbyPandals, getPandalById } from "../../controllers/pandal.controller.js";
 
-import { locationSchema } from "../../schemas/pandal.schema.js";
-import { validateQuery } from "../../middlewares/validation.middleware.js";
-import { getNearbyPandals, getPandalById } from "../../controllers/pandal.controller.js";
+const router: Router = Express.Router();
 
-
-const router : Router = Express.Router();
-
-
-
-router.get('/nearby/location',validateQuery(locationSchema),getNearbyPandals)
+router.get('/nearby/location', validateQuery(locationSchema), getNearbyPandals);
 router.get('/:id', getPandalById);
-// router.post("/:pandalId/checkins")
+router.post("/:pandalId/checkins", validate(checkinSchema), createCheckin);
 
 export default router;
