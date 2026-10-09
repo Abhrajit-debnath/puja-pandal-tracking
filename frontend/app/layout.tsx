@@ -29,9 +29,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${playfair.variable} ${jakarta.variable} ${greatVibes.variable} antialiased`}
+      className={`${playfair.variable} ${jakarta.variable}  antialiased`}
     >
-      <body className="bg-alpona-ivory min-h-screen font-sans">
+      <body className="bg-alpona-ivory min-h-screen">
         <App>
           <SocketProvider>
             {children}

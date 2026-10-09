@@ -6,6 +6,9 @@ import { logger } from './config/logger.js';
 import IndexRoutes from './Routes/index.js';
 import { Server } from "socket.io";
 import http from 'http';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
+
 
 const app = express();
 
@@ -29,7 +32,7 @@ io.on('connection', (socket) => {
   io.emit('users', io.engine.clientsCount);
 
   socket.emit('users', io.engine.clientsCount);
-  
+
   socket.on('disconnect', () => {
     logger.info(`User disconnected: ${socket.id}`);
     io.emit('users', io.engine.clientsCount);
@@ -51,6 +54,26 @@ app.use(pinoHttp({
 }));
 
 app.use(express.json());
+
+// enforces security headers using Helmet middleware. It sets the X-Frame-Options header to 'sameorigin', enables the X-Content-Type-Options header, and disables the X-Powered-By header to prevent revealing information about the server.
+
+app.use(helmet({
+  xFrameOptions: {
+    action: 'sameorigin',
+
+  },
+  xContentTypeOptions: true,
+  xPoweredBy: false,
+}));
+
+
+// app.use(rateLimit({
+//   windowMs: 15 * 60 * 1000, // 15 minutes,
+//   limit: 100, // Limit each IP to 100 requests per windowMs
+//   standardHeaders: 'draft-8', // Return rate limit info in the `RateLimit-*` headers
+//   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+//   ipv6Subnet: 60
+// }))
 
 app.use(IndexRoutes);
 

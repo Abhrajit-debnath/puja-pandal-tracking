@@ -39,7 +39,7 @@ const HeroFeatureCard = ({ card, className = "" }: HeroFeatureCardProps) => {
   const handleClick = (e: React.MouseEvent) => {
     if (isNearestCard) {
       e.preventDefault();
-      fetchNearbyPandals(); // 🚀 Trigger location fetch + API call
+      fetchNearbyPandals(); 
     }
   };
 

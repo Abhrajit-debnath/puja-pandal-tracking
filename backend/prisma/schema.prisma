@@ -4,9 +4,9 @@
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   // output   = "../src/generated/prisma"
-   previewFeatures = ["postgresqlExtensions"] 
+  previewFeatures = ["postgresqlExtensions"]
 }
 
 datasource db {
@@ -20,21 +20,20 @@ enum crowdStatus {
 }
 
 model Pandal {
-  id             String     @id @default(cuid())
-  name           String
-  locality       String
-  theme          String?
-  description    String?
-  year           Int
-  eventYear      String
-  imageUrls      String[]
-  bannerImageUrl String
-  checkins       Checkins[]
-  latitude       Float
-  longitude      Float
-  createdAt      DateTime   @default(now())
-
-
+  id          String  @id @default(cuid())
+  name        String
+  locality    String
+  theme       String?
+  description String?
+  year            Int
+  eventYear       String
+  imageUrls       String[]
+  bannerImageUrl  String
+  checkins        Checkins[]
+  latitude        Float
+  longitude       Float
+  createdAt       DateTime         @default(now())
+  biswarjanQueues BiswarjanQueue[]
   @@index([latitude, longitude, id])
 }
 
@@ -44,6 +43,16 @@ model Checkins {
   pandalId   String
   pandal     Pandal      @relation(fields: [pandalId], references: [id])
   createdAt  DateTime    @default(now())
-
   @@index([pandalId, createdAt, id])
+}
+
+model BiswarjanQueue {
+  id        String    @id @default(cuid())
+  pandalId  String    @unique
+  pandal    Pandal    @relation(fields: [pandalId], references: [id])
+  serialNo  Int       @unique
+  status    String    @default("WAITING")
+  startedAt DateTime? @default(now())
+  createdAt DateTime  @default(now())
+  @@index([serialNo])
 }

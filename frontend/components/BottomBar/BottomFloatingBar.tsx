@@ -3,16 +3,20 @@
 import { useState } from "react";
 import { Home, Landmark, Radio, Images, User, Loader2 } from "lucide-react";
 import { useLocationStore } from "@/store/useLocationStore";
-
+import Link from 'next/link'
 const navItems = [
   { id: "home", label: "Home", icon: Home, href: "#" },
   { id: "suggest", label: "Suggest", icon: Landmark, href: "#" },
-  { id: "live", label: "Live", icon: Radio, href: "#live", isHero: true },
+  { id: "live", label: "Live", icon: Radio, href: "/live/immersion", isHero: true },
   { id: "gallery", label: "Gallery", icon: Images, href: "#gallery" },
   { id: "profile", label: "Profile", icon: User, href: "#profile" },
 ];
 
-const BottomFloatingBar = () => {
+
+type BottomFloatingBarProps = {
+  handleLoading: (targetRoute: string) => void;
+};
+const BottomFloatingBar = ({handleLoading}: BottomFloatingBarProps) => {
   const [activeTab, setActiveTab] = useState("home");
   const { fetchNearbyPandals, isLoading } = useLocationStore();
 
@@ -20,10 +24,13 @@ const BottomFloatingBar = () => {
     setActiveTab(item.id);
 
     if (item.id === "suggest") {
-      e.preventDefault();
-      fetchNearbyPandals(); 
+
+      fetchNearbyPandals();
     }
   };
+
+
+
 
   return (
     <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-xl">
@@ -36,10 +43,10 @@ const BottomFloatingBar = () => {
           // Hero Center Button (Live)
           if (item.isHero) {
             return (
-              <a
+              <button
                 key={item.id}
-                href={item.href}
-                onClick={(e) => handleTabClick(e, item)}
+               
+                onClick={()=>handleLoading("/live/immersion")}
                 className="flex flex-col items-center justify-center relative -top-7 cursor-pointer group"
               >
                 {/* Red Circular Button */}
@@ -52,7 +59,7 @@ const BottomFloatingBar = () => {
                 <span className="text-sm font-bold text-live-red mt-1 tracking-tight">
                   {item.label}
                 </span>
-              </a>
+              </button>
             );
           }
 
@@ -62,24 +69,21 @@ const BottomFloatingBar = () => {
               key={item.id}
               href={item.href}
               onClick={(e) => handleTabClick(e, item)}
-              className={`flex flex-col items-center justify-center px-2 py-1 cursor-pointer transition-colors duration-200 group ${
-                isActive ? "text-saffron-gold" : "text-[#7a6c60] hover:text-[#1f140e]"
-              }`}
+              className={`flex flex-col items-center justify-center px-2 py-1 cursor-pointer transition-colors duration-200 group ${isActive ? "text-saffron-gold" : "text-[#7a6c60] hover:text-[#1f140e]"
+                }`}
             >
               {item.id === "suggest" && isLoading ? (
                 <Loader2 className="w-5 h-5 animate-spin text-saffron-gold" />
               ) : (
                 <Icon
-                  className={`w-5 h-5 transition-transform duration-200 group-hover:scale-110 ${
-                    isActive ? "text-saffron-gold" : "text-[#7a6c60] group-hover:text-[#1f140e]"
-                  }`}
+                  className={`w-5 h-5 transition-transform duration-200 group-hover:scale-110 ${isActive ? "text-saffron-gold" : "text-[#7a6c60] group-hover:text-[#1f140e]"
+                    }`}
                   strokeWidth={isActive ? 2.3 : 1.8}
                 />
               )}
               <span
-                className={`text-[11px] mt-0.5 tracking-tight font-sans ${
-                  isActive ? "font-bold text-saffron-gold" : "font-medium text-[#7a6c60]"
-                }`}
+                className={`text-[11px] mt-0.5 tracking-tight font-sans ${isActive ? "font-bold text-saffron-gold" : "font-medium text-[#7a6c60]"
+                  }`}
               >
                 {item.id === "suggest" && isLoading ? "Locating..." : item.label}
               </span>

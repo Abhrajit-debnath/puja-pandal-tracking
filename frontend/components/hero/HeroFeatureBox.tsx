@@ -1,11 +1,21 @@
+"use client";
+
 import { homeData } from "@/data/home";
 import HeroFeatureCard from "./HeroFeatureCard";
+import { motion } from "motion/react";
+import { BannerAnimator } from "@/app/animators/Banner.animator";
 
 const HeroFeatureBox = () => {
   return (
-    <div className="relative z-30 max-w-(--container-max-width) mx-auto px-4 sm:px-6">
+    <motion.div 
+      initial={BannerAnimator.ScrollSectionReveal.initials}
+      whileInView={BannerAnimator.ScrollSectionReveal.animate}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={BannerAnimator.ScrollSectionReveal.transition}
+      className="relative z-30 max-w-(--container-max-width) mx-auto px-4 sm:px-6"
+    >
 
-      {/* Lotus Emblem Badge on Top Border */}
+   
       <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-40 bg-[#faf4ec] border border-[#f0e5d3] px-3.5 py-1 rounded-full shadow-xs flex items-center justify-center">
         <span className="text-base select-none">🪷</span>
       </div>
@@ -37,7 +47,7 @@ const HeroFeatureBox = () => {
         </div>
       </div>
 
-    </div>
+    </motion.div>
   );
 };
 

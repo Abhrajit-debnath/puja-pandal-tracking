@@ -56,11 +56,11 @@ export const findPandalsNear = async (coords: LocationCoordinates) => {
                 BUSY: 0,
                 PACKED: 0
             }
-        } else {
+        }  
             const pMap = crowdLevelMap[checkin.pandalId]
 
             pMap![checkin.crowdLevel] += 1
-        }
+        
 
     }
     return pandals.map(pandal=>{
@@ -86,7 +86,7 @@ export const findPandalsNear = async (coords: LocationCoordinates) => {
         latitude: pandal.latitude,
         longitude: pandal.longitude,
         distanceInMeters: pandal.distanceInMeters,
-        crowdLevelStatus: status,
+        crowdLevelStatus: status as CrowdLevelEnum,
         totalVotesInLast5Min: maxVotes
 
        }

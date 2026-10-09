@@ -38,7 +38,7 @@ const AudioPlayer = () => {
 
     return (
         <div>
-            <audio ref={audioRef} src="/assets/sound/dhak.mp3" loop autoPlay muted />
+            <audio ref={audioRef} src="/assets/sound/dhak.mp3" autoPlay muted />
         </div>
     );
 };

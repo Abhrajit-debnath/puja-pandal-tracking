@@ -1,15 +1,25 @@
+"use client";
+
 import NextImage from "next/image";
 import { homeData } from "@/data/home";
 import { Box, Title, Text, Button, Badge, Card } from "@mantine/core";
 import { Calendar, ArrowRight, Play } from "lucide-react";
+import { motion } from "motion/react";
+import { BannerAnimator } from "@/app/animators/Banner.animator";
 
 const LatestUpdatesSection = () => {
   return (
-    <Box component="section" className=" bg-[#faf4ec]">
+    <Box component="section" className="bg-[#faf4ec]">
       <div className="max-w-(--container-max-width) mx-auto px-4 sm:px-6">
         
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+        <motion.div 
+          initial={BannerAnimator.ScrollHeaderReveal.initials}
+          whileInView={BannerAnimator.ScrollHeaderReveal.animate}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={BannerAnimator.ScrollHeaderReveal.transition}
+          className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8"
+        >
           <div>
             <div className="flex items-center gap-1.5 mb-1">
               <span className="text-sm">🪷</span>
@@ -32,11 +42,11 @@ const LatestUpdatesSection = () => {
           >
             View All
           </Button>
-        </div>
+        </motion.div>
 
-        {/* Updates Grid */}
+        {/* Updates Grid with Staggered Scroll Reveal */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {homeData.latestUpdates.map((item) => {
+          {homeData.latestUpdates.map((item, idx) => {
             const getBadgeProps = (cat: string) => {
               if (cat === "Event") return { color: "red", className: "bg-[#ffebee] text-[#dc2626]" };
               if (cat === "Update") return { color: "orange", className: "bg-[#fff3e0] text-[#e65100]" };
@@ -46,57 +56,67 @@ const LatestUpdatesSection = () => {
             const badgeProps = getBadgeProps(item.category);
 
             return (
-              <Card
+              <motion.div
                 key={item.id}
-                component="a"
-                href={item.href}
-                radius="xl"
-                withBorder
-                padding="md"
-                className="bg-white border-[#f0e5d3] flex flex-row items-center gap-4 shadow-xs hover:shadow-md transition duration-200 group cursor-pointer"
+                initial={BannerAnimator.ScrollCardItemReveal.initials}
+                whileInView={BannerAnimator.ScrollCardItemReveal.animate}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{
+                  ...BannerAnimator.ScrollCardItemReveal.transition,
+                  delay: idx * 0.12,
+                }}
               >
-                {/* Image Thumbnail with Overlay Play Icon */}
-                <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden bg-gray-100 shrink-0">
-                  <NextImage
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                    <div className="w-6 h-6 rounded-full bg-white/90 flex items-center justify-center shadow-xs">
-                      <Play className="w-3 h-3 text-[#dc2626] fill-current ml-0.5" />
+                <Card
+                  component="a"
+                  href={item.href}
+                  radius="xl"
+                  withBorder
+                  padding="md"
+                  className="bg-white border-[#f0e5d3] flex flex-row items-center gap-4 shadow-xs hover:shadow-md transition duration-200 group cursor-pointer"
+                >
+                  {/* Image Thumbnail with Overlay Play Icon */}
+                  <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden bg-gray-100 shrink-0">
+                    <NextImage
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+                      <div className="w-6 h-6 rounded-full bg-white/90 flex items-center justify-center shadow-xs">
+                        <Play className="w-3 h-3 text-[#dc2626] fill-current ml-0.5" />
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Content Block */}
-                <div className="flex-1 min-w-0">
-                  <Badge
-                    radius="xl"
-                    size="xs"
-                    className={`font-bold uppercase tracking-wider font-sans mb-1 ${badgeProps.className}`}
-                  >
-                    {item.category}
-                  </Badge>
+                  {/* Content Block */}
+                  <div className="flex-1 min-w-0">
+                    <Badge
+                      radius="xl"
+                      size="xs"
+                      className={`font-bold uppercase tracking-wider font-sans mb-1 ${badgeProps.className}`}
+                    >
+                      {item.category}
+                    </Badge>
 
-                  <Text className="font-sans font-bold text-xs sm:text-sm text-[#1f140e] line-clamp-2 leading-snug group-hover:text-[#e59b2c] transition-colors">
-                    {item.title}
-                  </Text>
-
-                  <div className="flex items-center gap-1 mt-2 text-[11px] font-sans font-medium text-[#7a6c60]">
-                    <Calendar className="w-3 h-3" />
-                    <Text component="span" className="text-[11px] text-[#7a6c60]">
-                      {item.date}
+                    <Text className="font-sans font-bold text-xs sm:text-sm text-[#1f140e] line-clamp-2 leading-snug group-hover:text-[#e59b2c] transition-colors">
+                      {item.title}
                     </Text>
-                  </div>
-                </div>
 
-                {/* Circular Arrow Button */}
-                <div className="w-7 h-7 rounded-full bg-[#f5efe6] group-hover:bg-[#f4b244] text-[#1f140e] flex items-center justify-center transition duration-200 shrink-0 self-center">
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </div>
-              </Card>
+                    <div className="flex items-center gap-1 mt-2 text-[11px] font-sans font-medium text-[#7a6c60]">
+                      <Calendar className="w-3 h-3" />
+                      <Text component="span" className="text-[11px] text-[#7a6c60]">
+                        {item.date}
+                      </Text>
+                    </div>
+                  </div>
+
+                  {/* Circular Arrow Button */}
+                  <div className="w-7 h-7 rounded-full bg-[#f5efe6] group-hover:bg-[#f4b244] text-[#1f140e] flex items-center justify-center transition duration-200 shrink-0 self-center">
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </div>
+                </Card>
+              </motion.div>
             );
           })}
         </div>

@@ -37,8 +37,8 @@ const heroSlides = [
     id: "slide-3",
     eyebrow: "📍 Smart Parikrama Guide",
     titleLine1: "Real-time Crowd",
-    titleLine2: "Telemetry & Map",
-    titleHighlight: "Live Pandal Recommendations",
+    titleLine2: "Telemetry and Live",
+    titleHighlight: "Pandal Recommendations",
     description: "Check live crowd wait times, find nearest pandals within 1km, and navigate Chandannagar hassle-free.",
     ctaLabel: "Find Nearest Pandals",
     ctaHref: "#suggest",
@@ -48,7 +48,7 @@ const heroSlides = [
 
 const HeroSection = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
-    Autoplay({ delay: 5500, stopOnInteraction: false }),
+    Autoplay({ delay: 6000, stopOnInteraction: false }),
   ]);
 
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -74,7 +74,7 @@ const HeroSection = () => {
   const currentSlide = heroSlides[selectedIndex] || heroSlides[0];
 
   return (
-    <div className="relative w-full min-h-[580px] sm:min-h-[680px] bg-[#1c0508] overflow-hidden text-white pt-24 pb-32 md:pb-40 lg:pb-48">
+    <div className="relative w-full  bg-[#1c0508] overflow-hidden text-white pt-24 pb-32 md:pb-40 lg:pb-48">
 
 
       <div className="absolute inset-0 z-0 overflow-hidden">
@@ -147,7 +147,7 @@ const HeroSection = () => {
                 className="flex-[0_0_100%] min-w-0 relative w-full"
               >
                 <div className="max-w-(--container-max-width) mx-auto px-6 sm:px-8 lg:px-0">
-                  <div className="max-w-xl flex flex-col items-start pt-6 sm:pt-10 min-h-[340px] sm:min-h-[400px] justify-center">
+                  <div className="max-w-4xl flex flex-col items-start pt-6 sm:pt-10  justify-center">
                     <AnimatePresence mode="wait">
                       {isActive && (
                         <motion.div

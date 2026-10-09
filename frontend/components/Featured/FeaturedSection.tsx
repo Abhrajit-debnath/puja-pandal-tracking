@@ -1,15 +1,25 @@
+"use client";
+
 import { homeData } from "@/data/home";
 import FeaturedCard from "./FeaturedCard";
 import { Box, Title, Text, Button } from "@mantine/core";
 import { ArrowRight } from "lucide-react";
+import { motion } from "motion/react";
+import { BannerAnimator } from "@/app/animators/Banner.animator";
 
 const FeaturedSection = () => {
   return (
     <Box component="section" id="pandals" className="py-12 sm:py-16 bg-[#faf4ec]">
       <div className="max-w-(--container-max-width) mx-auto px-4 sm:px-6">
-        
+
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+        <motion.div 
+          initial={BannerAnimator.ScrollHeaderReveal.initials}
+          whileInView={BannerAnimator.ScrollHeaderReveal.animate}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={BannerAnimator.ScrollHeaderReveal.transition}
+          className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8"
+        >
           <div>
             <div className="flex items-center gap-1.5 mb-1">
               <span className="text-sm">🪷</span>
@@ -36,12 +46,23 @@ const FeaturedSection = () => {
           >
             View All
           </Button>
-        </div>
+        </motion.div>
 
-        {/* Pandals Grid */}
+        {/* Pandals Grid with Staggered Scroll Reveal */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {homeData.featuredPandals.map((pandal) => (
-            <FeaturedCard key={pandal.id} pandal={pandal} />
+          {homeData.featuredPandals.map((pandal, idx) => (
+            <motion.div
+              key={pandal.id}
+              initial={BannerAnimator.ScrollCardItemReveal.initials}
+              whileInView={BannerAnimator.ScrollCardItemReveal.animate}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{
+                ...BannerAnimator.ScrollCardItemReveal.transition,
+                delay: idx * 0.12,
+              }}
+            >
+              <FeaturedCard pandal={pandal} />
+            </motion.div>
           ))}
         </div>
 

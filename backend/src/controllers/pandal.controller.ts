@@ -22,7 +22,7 @@ export const getNearbyPandals = async (
         }
 
         const pandals = await findNearbyPandals({ latitude, longitude });
-      
+
 
         res.status(200).json({
             success: true,
@@ -104,7 +104,7 @@ export const createCheckin = async (
             return;
         }
 
-        res.status(200).json({
+        res.status(201).json({
             success: true,
             data: checkIn,
         });
