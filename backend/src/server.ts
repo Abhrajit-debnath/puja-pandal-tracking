@@ -44,7 +44,7 @@ io.on('connection', (socket) => {
 
 
 
-app.use(cors({ origin: '*' }));
+app.use(cors({ origin: ['https://puja-pandal-tracking.vercel.app', 'http://localhost:3000'] }));
 
 app.use(pinoHttp({
   logger,
