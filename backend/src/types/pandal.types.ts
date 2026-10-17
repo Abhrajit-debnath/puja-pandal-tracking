@@ -21,7 +21,7 @@ export interface NearbyPandal {
   latitude: number;
   longitude: number;
   distanceInMeters: number;
-  crowdLevelStatus: CrowdLevelEnum;
+  crowdLevelStatus: CrowdLevelEnum ;
   totalVotesInLast5Min: number;
 
 }

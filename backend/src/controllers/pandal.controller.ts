@@ -1,9 +1,10 @@
 import type { Request, Response, NextFunction } from "express";
-import { createCheckinService, findNearbyPandals } from "../services/pandal.service.js";
+import { createCheckinService, findNearbyPandals, getAllTopPandals } from "../services/pandal.service.js";
 import { checkinSchema, pandalIdSchema, type CheckinBody } from "../schemas/pandal.schema.js";
 import type { CrowdLevelEnum, LocationCoordinates } from "../types/pandal.types.js";
 import { getPandalById as getPandalByIdService } from "../services/pandal.service.js";
-import { fetchCheckins } from "../repository/pandal.repository.js";
+
+
 export const getNearbyPandals = async (
     req: Request<{}, any, any, LocationCoordinates>,
     res: Response,
@@ -107,6 +108,35 @@ export const createCheckin = async (
         res.status(201).json({
             success: true,
             data: checkIn,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+
+export const getTopPandals = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+         console.log("🔥 [getTopPandals] Endpoint hit with query:", req.query); 
+
+        const limitQuery = req.query.limit ? Number(req.query.limit) : undefined;
+        const topPandals = await getAllTopPandals(limitQuery);
+
+        if (!topPandals) {
+            res.status(404).json({
+                success: false,
+                message: "Top pandals not Found.",
+            });
+            return;
+        }
+
+        res.status(200).json({
+            success: true,
+            data: topPandals,
         });
     } catch (error) {
         next(error);

@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "next dev -H 0.0.0.0"   
   },
   "dependencies": {
     "@mantine/core": "^9.6.1",

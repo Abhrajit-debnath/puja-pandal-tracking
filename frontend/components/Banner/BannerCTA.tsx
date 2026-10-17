@@ -58,7 +58,7 @@ const BannerCTA = () => {
 
   return (
     <Box component="section" className="py-12 sm:py-16 bg-[#faf4ec]">
-      <div className="max-w-(--container-max-width) mx-auto px-4 sm:px-6">
+      <div className="max-w-(--container-max-width) mx-auto px-4 sm:px-6 mb-10">
         
         {/* Outer Banner Card matching existing styles exactly */}
         <div className="relative bg-[#1c0508] text-white rounded-3xl border border-[#f4b244]/30 shadow-xl overflow-hidden">

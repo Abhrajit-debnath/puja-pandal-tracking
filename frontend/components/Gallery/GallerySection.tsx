@@ -40,7 +40,7 @@ const GallerySection = () => {
               <div className="relative p-0.5 sm:p-1 rounded-t-full rounded-b-xl bg-gradient-to-tr from-[#f4b244] via-[#e59b2c] to-[#fbebb5] shadow-md shadow-[#e59b2c]/20">
                 <div className="relative w-20 h-24 sm:w-32 sm:h-40 md:w-48 md:h-56 rounded-t-full rounded-b-lg border border-white overflow-hidden bg-amber-50">
                   <NextImage
-                    src="/assets/images/screen.png"
+                    src="/assets/images/gallery-block-hero.jpeg"
                     alt="Maa Jagadhatri"
                     fill
                     priority
@@ -97,7 +97,7 @@ const GallerySection = () => {
               {/* Top Photo Card (Rotated Right) */}
               <div className="absolute right-0 top-0 w-16 h-14 sm:w-28 sm:h-24 md:w-36 md:h-30 rounded-lg sm:rounded-xl overflow-hidden shadow-md border sm:border-2 border-white transform rotate-10 group-hover:rotate-14 transition-transform duration-300">
                 <NextImage
-                  src="/assets/images/hero.png"
+                  src="/assets/images/gallery-block-1.jpeg"
                   alt="Pandal Night 1"
                   fill
                   sizes="140px"
@@ -108,7 +108,7 @@ const GallerySection = () => {
               {/* Middle Photo Card (Rotated Left) */}
               <div className="absolute left-0 top-2 sm:top-4 w-16 h-14 sm:w-28 sm:h-24 md:w-36 md:h-30 rounded-lg sm:rounded-xl overflow-hidden shadow-lg border sm:border-2 border-white transform -rotate-8 group-hover:-rotate-12 transition-transform duration-300 z-10">
                 <NextImage
-                  src="/assets/images/screen.png"
+                  src="/assets/images/gallery-block-2.jpeg"
                   alt="Pandal Night 2"
                   fill
                   sizes="140px"
@@ -119,7 +119,7 @@ const GallerySection = () => {
               {/* Front Photo Card (Rotated Slight Right) */}
               <div className="absolute right-1 bottom-0 w-16 h-14 sm:w-28 sm:h-24 md:w-36 md:h-30 rounded-lg sm:rounded-xl overflow-hidden shadow-xl border sm:border-2 border-[#f4b244] transform rotate-3 group-hover:rotate-6 group-hover:scale-105 transition-all duration-300 z-20">
                 <NextImage
-                  src="/assets/images/hero.png"
+                  src="/assets/images/gallery-block-3.jpeg"
                   alt="Pandal Night 3"
                   fill
                   sizes="140px"

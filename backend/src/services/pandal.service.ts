@@ -1,6 +1,6 @@
 
 import type { CrowdLevelEnum, LocationCoordinates } from "../types/pandal.types.js";
-import { createCheckin, findPandalsNear } from "../repository/pandal.repository.js";
+import { createCheckin, fetchTopPandalsList, findPandalsNear } from "../repository/pandal.repository.js";
 import { findPandalById } from "../repository/pandal.repository.js";
 import id from "zod/v4/locales/id.js";
 import { getNearbyPandalsfromCache, setNearbyPandalsInCache } from "../utils/lrucache.js";
@@ -48,7 +48,14 @@ export const getPandalById = async (id: string) => {
 
 
 
-
+export const getAllTopPandals = async (limit?:number) => {
+    try {
+        const topPandals = await fetchTopPandalsList(limit);
+        return topPandals;
+    } catch (error) {
+        throw new Error(`Error finding top pandals: ${error}`);
+    }
+};
 
 export const createCheckinService = async (pandalId: string, crowdLevel: CrowdLevelEnum) => {
     try {

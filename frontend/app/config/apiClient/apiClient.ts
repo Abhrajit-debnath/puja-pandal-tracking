@@ -1,7 +1,10 @@
+
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000/api/v1';
+
 export const apiClient = {
     get: async (url: string, options?: RequestInit) => {
-        const response = await fetch(url, { ...options, method: 'GET' });
-        return response.json();
+        const response = await fetch(`${BASE_URL}${url}`, { ...options, method: 'GET' });
+        return await response.json();
     }
 
     ,
