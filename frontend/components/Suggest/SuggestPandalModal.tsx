@@ -3,8 +3,9 @@
 import { useState } from "react";
 import { Modal, Text, Title, Button, Loader, Badge, Card } from "@mantine/core";
 import { useLocationStore } from "@/store/useLocationStore";
-import { MapPin, Navigation, Sparkles, Navigation2, CheckCircle2, Users, ChevronDown, ChevronUp } from "lucide-react";
+import { MapPin, Navigation, Sparkles, Navigation2,UserRoundGroup, CheckCircle2, Users, ChevronDown, ChevronUp, UserGroup } from "lucide-react";
 import NextImage from "next/image";
+
 import { apiClient } from "@/app/config/apiClient/apiClient";
 
 const BACKEND_PORT = process.env.NEXT_PUBLIC_BACKEND_PORT || "8000";
@@ -143,8 +144,8 @@ const SuggestPandalModal = () => {
 
                     {/* Distance Badge on Image */}
                     {pandal.distanceInMeters !== undefined && (
-                      <div className="absolute bottom-1.5 left-1.5 right-1.5 bg-black/75 backdrop-blur-xs text-white px-1.5 py-0.5 rounded-md text-[9px] font-bold text-center">
-                        📍 {Math.round(pandal.distanceInMeters)}m away
+                      <div className="absolute flex gap-1 bottom-1.5 left-1.5 right-1.5 bg-black/75 backdrop-blur-xs text-white px-1 py-1.5 justify-center items-center rounded-md text-[9px] font-bold text-center">
+                        <MapPin className="w-3 h-3"/> {Math.round(pandal.distanceInMeters)}m away
                       </div>
                     )}
                   </div>
@@ -241,7 +242,7 @@ const SuggestPandalModal = () => {
                           onClick={() => handleReportCrowd(pandal.id, "CALM")}
                           className="flex flex-col items-center justify-center p-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-800 transition cursor-pointer group"
                         >
-                          <span className="text-base mb-0.5">🟢</span>
+                          <span className="text-base mb-0.5"><Users/></span>
                           <span className="text-[11px] font-bold">Calm</span>
                           <span className="text-[9px] text-emerald-600">Low Wait</span>
                         </button>
@@ -253,7 +254,7 @@ const SuggestPandalModal = () => {
                           onClick={() => handleReportCrowd(pandal.id, "BUSY")}
                           className="flex flex-col items-center justify-center p-2 rounded-xl bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-800 transition cursor-pointer group"
                         >
-                          <span className="text-base mb-0.5">🟡</span>
+                          <span className="text-base mb-0.5"><UserRoundGroup/></span>
                           <span className="text-[11px] font-bold">Busy</span>
                           <span className="text-[9px] text-amber-600">Moderate</span>
                         </button>
@@ -265,7 +266,7 @@ const SuggestPandalModal = () => {
                           onClick={() => handleReportCrowd(pandal.id, "PACKED")}
                           className="flex flex-col items-center justify-center p-2 rounded-xl bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-800 transition cursor-pointer group"
                         >
-                          <span className="text-base mb-0.5">🔴</span>
+                          <span className="text-base mb-0.5"><UserGroup/></span>
                           <span className="text-[11px] font-bold">Packed</span>
                           <span className="text-[9px] text-rose-600">Heavy Wait</span>
                         </button>
